@@ -21,7 +21,9 @@ import { deleteBooking } from "../services/dataService";
 interface IBookingCardProps {
   handleUpdateForm: () => void;
   booking: BookingCustomerExt;
-  updateChosenBooking: (current: BookingCustomerExt | BookingClass) => void;
+  updateChosenBooking: (
+    current: BookingCustomerExt | BookingClass
+  ) => void;
 }
 
 export const BookingCard = (props: IBookingCardProps) => {
@@ -29,7 +31,7 @@ export const BookingCard = (props: IBookingCardProps) => {
   const [bookingToUpdate, setBookingToUpdate] = useState({});
   console.log(props.booking);
 
-  //useEffect(() => {}, [bookingToUpdate]);
+  useEffect(() => {}, [bookingToUpdate]);
 
   const updateBooking = () => {
     props.updateChosenBooking(props.booking);
@@ -41,10 +43,10 @@ export const BookingCard = (props: IBookingCardProps) => {
 
     console.log("chosenBooking", chosenBooking._id);
 
-    /* dispatch({
+    dispatch({
       type: ActionType.UPDATE_BOOKING,
       payload: JSON.stringify(chosenBooking),
-    }); */
+    });
   };
 
   const handleDeleteBooking = async () => {
@@ -52,7 +54,9 @@ export const BookingCard = (props: IBookingCardProps) => {
       await deleteBooking(props.booking._id);
       dispatch({
         type: ActionType.DELETE_BOOKING,
-        payload: props.booking._id ? props.booking._id.toString() : "",
+        payload: props.booking._id
+          ? props.booking._id.toString()
+          : "",
       });
     } catch (error) {
       console.error("Could not delete the booking");
@@ -75,7 +79,9 @@ export const BookingCard = (props: IBookingCardProps) => {
 
       <ButtonWrapper>
         <AdminButton onClick={updateBooking}>Uppdatera</AdminButton>
-        <AdminButton onClick={handleDeleteBooking}>Ta bort</AdminButton>
+        <AdminButton onClick={handleDeleteBooking}>
+          Ta bort
+        </AdminButton>
       </ButtonWrapper>
     </BookingCardWrapper>
   );
